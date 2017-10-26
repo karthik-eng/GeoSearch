@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+  <meta charset="UTF-8">
+<style>
+table, th, td {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+ </head>
+
+<body>
+  <form name="geo_search" action="" method="post">
+    {% csrf_token %}
+    <label><b>Lexical Search</b></label>
+     <br/>
+     <br/>
+    <label><b>City Name: </b></label>
+    <input type="text" name="lexical_search_string" id="lex_input_string">
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+    <label><b>Proximity Search</b></label>
+    <br/>
+    <br/>
+    <label><b>Note : To get city id for this query try Lexical Search</b></label>
+    <br/>
+    <br/>
+    <label><b>From city (id): </b></label>
+    <input type="text" name="current_city" id="current_city">
+    &ensp;
+    <label><b>Number of nearest cities: </b></label>
+    <input type="text" name="number_of_cities" id="number_of_cities" value=5>
+    &ensp;
+    <input type="checkbox" name="country_check" id="country_check" value=1 checked>
+    <label><b>Look within country</b></label>
+    <br/>
+    <br/>
+  <input type="submit" value="Search">
+  </form>
+
+
+<br/>
+<br/>
+{% if output_l %}
+<table border="1">
+	<tr>
+   		<th>City Id</th>
+   		<th>Name</th>
+   		<th>AsciiName</th>
+   		<th>AlternateNames</th>
+   		<th>CountryCode</th>
+   		<th>Latitude</th>
+   		<th>Longitude</th>
+   		<th>Feature Class</th>
+   		<th>Feature Code</th>
+   		<th>CC2</th>
+   		<th>Admin Code1</th>
+   		<th>Admin Code2</th>
+   		<th>Admin Code3</th>
+   		<th>Admin Code4</th>
+   		<th>Population</th>
+   		<th>Elevation</th>
+   		<th>Dem</th>
+   		<th>TimeZone</th>
+   		<th>Modification Date</th>
+	</tr>
+
+    {% for city_d in output_l %}
+         <tr>
+		<td style="max-width:100px;">&nbsp;{{city_d.geonameid}}&nbsp;</td>
+		<td style="max-width:300px;">&nbsp;{{city_d.name}}&nbsp;</td>
+		<td style="max-width:300px;">&nbsp;{{city_d.asciiname}}&nbsp;</td>
+		<td style="max-width:450px;"><div style="word-wrap: break-word;">&nbsp;{{city_d.alternatenames}}&nbsp;</div></td>
+		<td style="max-width:30px;">&nbsp;{{city_d.country_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.latitude}}</td>
+		<td>&nbsp;{{city_d.longitude}}</td>
+		<td>&nbsp;{{city_d.feature_class}}&nbsp;</td>
+		<td>&nbsp;{{city_d.feature_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.cc2}}&nbsp;</td>
+		<td>&nbsp;{{city_d.admin1_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.admin2_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.admin3_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.admin4_code}}&nbsp;</td>
+		<td>&nbsp;{{city_d.population}}&nbsp;</td>
+		<td>&nbsp;{{city_d.elevation}}&nbsp;</td>
+		<td>&nbsp;{{city_d.dem}}&nbsp;</td>
+		<td>&nbsp;{{city_d.timezone}}&nbsp;</td>
+		<td>&nbsp;{{city_d.modification_date}}&nbsp;</td>
+
+         </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+</body>
+</html>
